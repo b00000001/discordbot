@@ -16,7 +16,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ts-build/index.js"
+    "start": "node ts-build/index.js",
+    "combuild": "node ts-build/commands/commands.js"
   },
   "repository": {
     "type": "git",

@@ -41,12 +41,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var _a = require('discord.js'), Client = _a.Client, Intents = _a.Intents;
 var client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+var index_1 = __importDefault(require("./tempest/index"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 client.once('ready', function () {
     console.log("Logged in as " + client.user.tag + "!");
 });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
+    var weather;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -59,12 +61,15 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 _a.sent();
                 _a.label = 2;
             case 2:
-                if (!(interaction.commandName === 'weather')) return [3 /*break*/, 4];
-                return [4 /*yield*/, interaction.reply('Pong!')];
+                if (!(interaction.commandName === 'weather')) return [3 /*break*/, 5];
+                return [4 /*yield*/, (0, index_1.default)()];
             case 3:
+                weather = _a.sent();
+                return [4 /*yield*/, interaction.reply(weather)];
+            case 4:
                 _a.sent();
-                _a.label = 4;
-            case 4: return [2 /*return*/];
+                _a.label = 5;
+            case 5: return [2 /*return*/];
         }
     });
 }); });

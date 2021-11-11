@@ -61,10 +61,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
 var dotenv = __importStar(require("dotenv"));
 dotenv.config();
-var token = process.env.TOKEN;
-var station_id = process.env.STATION_ID;
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var d, metaData, observation;
+var token = process.env.TEMPEST_TOKEN;
+var station_id = process.env.TEMPEST_STATION_ID;
+var pullWeather = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var d, metaData, observation, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -75,8 +75,9 @@ var station_id = process.env.STATION_ID;
                 return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/observations/station/" + station_id + "?token=" + token)];
             case 2:
                 observation = _a.sent();
-                console.log("\n  Current Temp: " + (observation.data.obs[0].air_temperature * 1.8 + 32) + "F\n    Current Time: " + d.getHours() + ":" + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ":" + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()) + "\n  ");
-                return [2 /*return*/];
+                response = "\n  Current Temp: " + (observation.data.obs[0].air_temperature * 1.8 + 32) + "F\n  Current Time: " + d.getHours() + ":" + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ":" + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()) + "\n  ";
+                return [2 /*return*/, response];
         }
     });
-}); })();
+}); };
+exports.default = pullWeather;

@@ -1,5 +1,6 @@
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+import pullWeather from './tempest/index';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -15,7 +16,8 @@ client.on('interactionCreate', async (interaction: any) => {
     await interaction.reply('Pong!');
   }
   if (interaction.commandName === 'weather') {
-    await interaction.reply('Pong!');
+    const weather = await pullWeather();
+    await interaction.reply(weather);
   }
 });
 
