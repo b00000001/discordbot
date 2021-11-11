@@ -12,13 +12,11 @@ client.on('interactionCreate', async (interaction: any) => {
   if (!interaction.isCommand()) return;
 
   if (interaction.commandName === 'ping') {
-    console.log('ping received');
     await interaction.reply('Pong!');
   }
-  if (interaction.commandName === 'user') {
-    console.log('ping received');
-    await interaction.reply('User!');
+  if (interaction.commandName === 'weather') {
+    await interaction.reply('Pong!');
   }
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.DISCORD_TOKEN);

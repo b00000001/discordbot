@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,33 +58,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _a = require('discord.js'), Client = _a.Client, Intents = _a.Intents;
-var client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-client.once('ready', function () {
-    console.log("Logged in as " + client.user.tag + "!");
-});
-client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
+var axios_1 = __importDefault(require("axios"));
+var dotenv = __importStar(require("dotenv"));
+dotenv.config();
+var token = process.env.TOKEN;
+var station_id = process.env.STATION_ID;
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var d, metaData, observation;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('interaction');
-                if (!interaction.isCommand())
-                    return [2 /*return*/];
-                if (!(interaction.commandName === 'ping')) return [3 /*break*/, 2];
-                return [4 /*yield*/, interaction.reply('Pong!')];
+                d = new Date();
+                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/stations?token=" + token)];
             case 1:
-                _a.sent();
-                _a.label = 2;
+                metaData = _a.sent();
+                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/observations/station/" + station_id + "?token=" + token)];
             case 2:
-                if (!(interaction.commandName === 'weather')) return [3 /*break*/, 4];
-                return [4 /*yield*/, interaction.reply('Pong!')];
-            case 3:
-                _a.sent();
-                _a.label = 4;
-            case 4: return [2 /*return*/];
+                observation = _a.sent();
+                console.log("\n  Current Temp: " + (observation.data.obs[0].air_temperature * 1.8 + 32) + "F\n    Current Time: " + d.getHours() + ":" + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ":" + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()) + "\n  ");
+                return [2 /*return*/];
         }
     });
-}); });
-client.login(process.env.DISCORD_TOKEN);
+}); })();

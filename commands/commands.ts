@@ -9,20 +9,20 @@ const commands = [
     .setName('ping')
     .setDescription('Replies with pong!'),
   new SlashCommandBuilder()
-    .setName('server')
-    .setDescription('Replies with server info!'),
+    .setName('weather')
+    .setDescription('Replies with weather pulled from Tempest weatherstation.'),
   new SlashCommandBuilder()
     .setName('user')
     .setDescription('Replies with user info!')
 ].map((command) => command.toJSON());
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 
 rest
   .put(
     Routes.applicationGuildCommands(
-      process.env.CLIENT_ID,
-      process.env.GUILD_ID
+      process.env.DISCORD_CLIENT_ID,
+      process.env.DISCORD_GUILD_ID
     ),
     { body: commands }
   )
