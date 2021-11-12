@@ -39,20 +39,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _a = require('discord.js'), Client = _a.Client, Intents = _a.Intents;
-var client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+var discord_js_1 = require("discord.js");
+var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
 var index_1 = __importDefault(require("./tempest/index"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 client.once('ready', function () {
-    console.log("Logged in as " + client.user.tag + "!");
+    var _a;
+    console.log("Logged in as " + ((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag) + "!");
 });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
     var weather;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('interaction');
                 if (!interaction.isCommand())
                     return [2 /*return*/];
                 if (!(interaction.commandName === 'ping')) return [3 /*break*/, 2];

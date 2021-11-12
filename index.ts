@@ -1,15 +1,14 @@
-const { Client, Intents } = require('discord.js');
+import { Client, Intents } from 'discord.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 import pullWeather from './tempest/index';
 import dotenv from 'dotenv';
 dotenv.config();
 
 client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`Logged in as ${client.user?.tag}!`);
 });
 
-client.on('interactionCreate', async (interaction: any) => {
-  console.log('interaction');
+client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
 
   if (interaction.commandName === 'ping') {
