@@ -3,15 +3,12 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const token = process.env.TEMPEST_TOKEN;
-const station_id = process.env.TEMPEST_STATION_ID;
+const stationId = process.env.TEMPEST_STATION_ID;
 
 const pullWeather = async () => {
   let d = new Date();
-  const metaData = await axios.get(
-      `https://swd.weatherflow.com/swd/rest/stations?token=${token}`
-  );
   const observation = await axios.get(
-      `https://swd.weatherflow.com/swd/rest/observations/station/${station_id}?token=${token}`
+      `https://swd.weatherflow.com/swd/rest/observations/station/${stationId}?token=${token}`,
   );
   const currentObservation = observation.data.obs[0];
   const response = `
