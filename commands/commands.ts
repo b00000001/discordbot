@@ -10,7 +10,7 @@ const commands = [
     .setDescription('Replies with pong!'),
   new SlashCommandBuilder()
     .setName('weather')
-    .setDescription('Replies with weather pulled from Tempest weatherstation.'),
+    .setDescription('Weather from Tempest Weatherstation API.'),
   new SlashCommandBuilder()
     .setName('user')
     .setDescription('Replies with user info!')
