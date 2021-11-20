@@ -62,18 +62,15 @@ var axios_1 = __importDefault(require("axios"));
 var dotenv = __importStar(require("dotenv"));
 dotenv.config();
 var token = process.env.TEMPEST_TOKEN;
-var station_id = process.env.TEMPEST_STATION_ID;
+var stationId = process.env.TEMPEST_STATION_ID;
 var pullWeather = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var d, metaData, observation, currentObservation, response;
+    var d, observation, currentObservation, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 d = new Date();
-                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/stations?token=" + token)];
+                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/observations/station/" + stationId + "?token=" + token)];
             case 1:
-                metaData = _a.sent();
-                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/observations/station/" + station_id + "?token=" + token)];
-            case 2:
                 observation = _a.sent();
                 currentObservation = observation.data.obs[0];
                 response = "\n  Station Webpage: https://tempestwx.com/station/25168/\n  Time: " + d.getHours() + ":" + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ":" + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()) + "\n  Location: " + observation.data.station_name + "\n  Current Temp: " + (currentObservation.air_temperature * 1.8 + 32) + "F\n  Current Humidity: " + currentObservation.relative_humidity + "%\n  Pressure Trend: " + currentObservation.pressure_trend + "\n  ";

@@ -16,7 +16,7 @@ client.on('interactionCreate', async (interaction) => {
   }
   if (interaction.commandName === 'weather') {
     const weather = await pullWeather();
-    await interaction.reply(weather);
+    await interaction.reply({ content: weather, ephemeral: true });
   }
 });
 

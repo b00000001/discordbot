@@ -65,7 +65,7 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 return [4 /*yield*/, (0, index_1.default)()];
             case 3:
                 weather = _a.sent();
-                return [4 /*yield*/, interaction.reply(weather)];
+                return [4 /*yield*/, interaction.reply({ content: weather, ephemeral: true })];
             case 4:
                 _a.sent();
                 _a.label = 5;
