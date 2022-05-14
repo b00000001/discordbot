@@ -16,10 +16,16 @@ client.on('interactionCreate', async (interaction) => {
       await interaction.reply('Pong!');
       break;
     case 'weather':
-      await interaction.reply({ content: await pullWeather(), ephemeral: true });
+      await interaction.reply({
+        content: await pullWeather(),
+        ephemeral: true,
+      });
       break;
     case 'forecast':
-      await interaction.reply({ content: `Forecast: ${await showForecast()}`, ephemeral: true });
+      await interaction.reply({
+        content: `Forecast: ${await showForecast()}`,
+        ephemeral: true,
+      });
       break;
     default:
       await interaction.reply('Unknown command!');

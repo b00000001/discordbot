@@ -72,7 +72,9 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 _c = (_b = interaction).reply;
                 _g = {};
                 return [4 /*yield*/, (0, index_1.pullWeather)()];
-            case 4: return [4 /*yield*/, _c.apply(_b, [(_g.content = _j.sent(), _g.ephemeral = true, _g)])];
+            case 4: return [4 /*yield*/, _c.apply(_b, [(_g.content = _j.sent(),
+                        _g.ephemeral = true,
+                        _g)])];
             case 5:
                 _j.sent();
                 return [3 /*break*/, 11];
@@ -81,7 +83,9 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 _h = {};
                 _f = "Forecast: ";
                 return [4 /*yield*/, (0, index_2.showForecast)()];
-            case 7: return [4 /*yield*/, _e.apply(_d, [(_h.content = _f + (_j.sent()), _h.ephemeral = true, _h)])];
+            case 7: return [4 /*yield*/, _e.apply(_d, [(_h.content = _f + (_j.sent()),
+                        _h.ephemeral = true,
+                        _h)])];
             case 8:
                 _j.sent();
                 return [3 /*break*/, 11];

@@ -81,13 +81,16 @@ var pullWeather = function () { return __awaiter(void 0, void 0, void 0, functio
 }); };
 exports.pullWeather = pullWeather;
 var showForecast = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var forecast;
+    var data, day1, day2, keys;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=" + stationId + "&token=" + token)];
             case 1:
-                forecast = _a.sent();
-                return [2 /*return*/, forecast.data.forecast];
+                data = (_a.sent()).data;
+                day1 = new Date(data.forecast.daily[0].day_start_local);
+                day2 = new Date(data.forecast.daily[1].day_start_local);
+                keys = Object.entries(data.forecast.daily[0]);
+                return [2 /*return*/, "\n  Day1: " + day1 + "\n  Day2: " + day2 + "\n  "];
         }
     });
 }); };

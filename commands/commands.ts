@@ -13,7 +13,7 @@ const commands = [
     .setDescription('Weather from Tempest Weatherstation API.'),
   new SlashCommandBuilder()
     .setName('forecast')
-    .setDescription('Shows weather forecast')
+    .setDescription('Shows weather forecast'),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
