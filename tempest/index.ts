@@ -24,4 +24,8 @@ const pullWeather = async () => {
   return response;
 };
 
-export default pullWeather;
+const showForecast = async () => {
+  let forecast = await axios.get(`https://swd.weatherflow.com/swd/rest/better_forecast?station_id=${stationId}&token=${token}`);
+  return forecast.data.forecast;
+}
+export { pullWeather, showForecast };

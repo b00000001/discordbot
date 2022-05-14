@@ -58,6 +58,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.showForecast = exports.pullWeather = void 0;
 var axios_1 = __importDefault(require("axios"));
 var dotenv = __importStar(require("dotenv"));
 dotenv.config();
@@ -78,4 +79,16 @@ var pullWeather = function () { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-exports.default = pullWeather;
+exports.pullWeather = pullWeather;
+var showForecast = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var forecast;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=" + stationId + "&token=" + token)];
+            case 1:
+                forecast = _a.sent();
+                return [2 /*return*/, forecast.data.forecast];
+        }
+    });
+}); };
+exports.showForecast = showForecast;

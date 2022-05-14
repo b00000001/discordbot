@@ -39,58 +39,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var discord_js_1 = require("discord.js");
-var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
-var index_1 = require("./tempest/index");
-var index_2 = require("./tempest/index");
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-client.once('ready', function () {
-    var _a;
-    console.log("Logged in as " + ((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag) + "!");
-});
-client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _b, _c, _d, _e, _f;
-    var _g, _h;
-    return __generator(this, function (_j) {
-        switch (_j.label) {
-            case 0:
-                if (!interaction.isCommand())
-                    return [2 /*return*/];
-                _a = interaction.commandName;
-                switch (_a) {
-                    case 'ping': return [3 /*break*/, 1];
-                    case 'weather': return [3 /*break*/, 3];
-                    case 'forecast': return [3 /*break*/, 6];
-                }
-                return [3 /*break*/, 9];
-            case 1: return [4 /*yield*/, interaction.reply('Pong!')];
-            case 2:
-                _j.sent();
-                return [3 /*break*/, 11];
-            case 3:
-                _c = (_b = interaction).reply;
-                _g = {};
-                return [4 /*yield*/, (0, index_1.pullWeather)()];
-            case 4: return [4 /*yield*/, _c.apply(_b, [(_g.content = _j.sent(), _g.ephemeral = true, _g)])];
-            case 5:
-                _j.sent();
-                return [3 /*break*/, 11];
-            case 6:
-                _e = (_d = interaction).reply;
-                _h = {};
-                _f = "Forecast: ";
-                return [4 /*yield*/, (0, index_2.showForecast)()];
-            case 7: return [4 /*yield*/, _e.apply(_d, [(_h.content = _f + (_j.sent()), _h.ephemeral = true, _h)])];
-            case 8:
-                _j.sent();
-                return [3 /*break*/, 11];
-            case 9: return [4 /*yield*/, interaction.reply('Unknown command!')];
-            case 10:
-                _j.sent();
-                return [3 /*break*/, 11];
-            case 11: return [2 /*return*/];
-        }
+var axios_1 = __importDefault(require("axios"));
+var pullDiscogs = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var data;
+    return __generator(this, function (_a) {
+        data = axios_1.default.get('https://api.discogs.com/releases/249504', {
+            headers: {
+                'User-Agent': 'BotDiscogsChecker/3.0',
+            },
+        });
+        // fs.writeFileSync('discogs.json', data);
+        console.log('File Written');
+        return [2 /*return*/];
     });
-}); });
-client.login(process.env.DISCORD_TOKEN);
+}); };
+pullDiscogs();
+exports.default = pullDiscogs;

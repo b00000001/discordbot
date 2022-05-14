@@ -1,6 +1,7 @@
 import { Client, Intents } from 'discord.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-import pullWeather from './tempest/index';
+import { pullWeather } from './tempest/index';
+import { showForecast } from './tempest/index';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,13 +11,19 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
-
-  if (interaction.commandName === 'ping') {
-    await interaction.reply('Pong!');
-  }
-  if (interaction.commandName === 'weather') {
-    const weather = await pullWeather();
-    await interaction.reply({ content: weather, ephemeral: true });
+  switch (interaction.commandName) {
+    case 'ping':
+      await interaction.reply('Pong!');
+      break;
+    case 'weather':
+      await interaction.reply({ content: await pullWeather(), ephemeral: true });
+      break;
+    case 'forecast':
+      await interaction.reply({ content: `Forecast: ${await showForecast()}`, ephemeral: true });
+      break;
+    default:
+      await interaction.reply('Unknown command!');
+      break;
   }
 });
 
