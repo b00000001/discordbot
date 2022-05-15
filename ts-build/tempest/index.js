@@ -58,42 +58,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showForecast = exports.pullWeather = void 0;
+exports.pullWeather = void 0;
 var axios_1 = __importDefault(require("axios"));
 var dotenv = __importStar(require("dotenv"));
 dotenv.config();
 var token = process.env.TEMPEST_TOKEN;
 var stationId = process.env.TEMPEST_STATION_ID;
 var pullWeather = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var d, observation, currentObservation, response;
+    var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                d = new Date();
-                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/observations/station/" + stationId + "?token=" + token)];
+            case 0: return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=" + stationId + "&token=" + token)];
             case 1:
-                observation = _a.sent();
-                currentObservation = observation.data.obs[0];
-                response = "\n  Station Webpage: https://tempestwx.com/station/25168/\n  Time: " + d.getHours() + ":" + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ":" + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()) + "\n  Location: " + observation.data.station_name + "\n  Current Temp: " + (currentObservation.air_temperature * 1.8 + 32) + "F\n  Current Humidity: " + currentObservation.relative_humidity + "%\n  Pressure Trend: " + currentObservation.pressure_trend + "\n  ";
-                return [2 /*return*/, response];
+                data = (_a.sent()).data;
+                return [2 /*return*/, data];
         }
     });
 }); };
 exports.pullWeather = pullWeather;
-var showForecast = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var month, data, day1, day2, keys;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=" + stationId + "&token=" + token)];
-            case 1:
-                data = (_a.sent()).data;
-                day1 = new Date(data.forecast.daily[0].day_start_local * 1000);
-                day2 = new Date(data.forecast.daily[1].day_start_local * 1000);
-                keys = Object.entries(data.forecast.daily[0]);
-                return [2 /*return*/, "\n  " + month[day1.getMonth()] + " " + day1.getDate() + "\n   Conditions: " + data.forecast.daily[0].conditions + "\n  ------------------------------------------------------------\n  " + month[day2.getMonth()] + " " + day2.getDate() + ": 'test'\n  "];
-        }
-    });
-}); };
-exports.showForecast = showForecast;

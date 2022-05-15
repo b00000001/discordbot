@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const {SlashCommandBuilder} = require('@discordjs/builders');
+const {REST} = require('@discordjs/rest');
+const {Routes} = require('discord-api-types/v9');
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -13,10 +13,10 @@ const commands = [
     .setDescription('Weather from Tempest Weatherstation API.'),
   new SlashCommandBuilder()
     .setName('forecast')
-    .setDescription('Shows weather forecast'),
+    .setDescription('Forecast from Tempest Weatherstation API.'),
 ].map((command) => command.toJSON());
 
-const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({version: '9'}).setToken(process.env.DISCORD_TOKEN);
 
 rest
   .put(
@@ -24,7 +24,7 @@ rest
       process.env.DISCORD_CLIENT_ID,
       process.env.DISCORD_GUILD_ID
     ),
-    { body: commands }
+    {body: commands}
   )
   .then(() => console.log('Successfully registered application commands.'))
   .catch(console.error);
