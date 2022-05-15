@@ -25,15 +25,18 @@ const pullWeather = async () => {
 };
 
 const showForecast = async () => {
+  let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const {data} = await axios.get(
     `https://swd.weatherflow.com/swd/rest/better_forecast?station_id=${stationId}&token=${token}`
   );
-  const day1 = new Date(data.forecast.daily[0].day_start_local);
-  const day2 = new Date(data.forecast.daily[1].day_start_local);
+  const day1 = new Date(data.forecast.daily[0].day_start_local * 1000);
+  const day2 = new Date(data.forecast.daily[1].day_start_local * 1000);
   const keys = Object.entries(data.forecast.daily[0]);
   return `
-  Day1: ${day1}
-  Day2: ${day2}
+  ${month[day1.getMonth()]} ${day1.getDate()}
+   Conditions: ${data.forecast.daily[0].conditions}
+  ------------------------------------------------------------
+  ${month[day2.getMonth()]} ${day2.getDate()}: 'test'
   `;
 };
 export {pullWeather, showForecast};
