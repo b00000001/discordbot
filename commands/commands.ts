@@ -14,6 +14,7 @@ const commands = [
   new SlashCommandBuilder()
     .setName('forecast')
     .setDescription('Forecast from Tempest Weatherstation API.'),
+  new SlashCommandBuilder().setName('test').setDescription('Test command.'),
 ].map((command) => command.toJSON());
 
 const rest = new REST({version: '9'}).setToken(process.env.DISCORD_TOKEN);

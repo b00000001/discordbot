@@ -18,6 +18,7 @@ var commands = [
     new SlashCommandBuilder()
         .setName('forecast')
         .setDescription('Forecast from Tempest Weatherstation API.'),
+    new SlashCommandBuilder().setName('test').setDescription('Test command.'),
 ].map(function (command) { return command.toJSON(); });
 var rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 rest
