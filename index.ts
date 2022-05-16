@@ -3,7 +3,6 @@ const client = new Client({intents: [Intents.FLAGS.GUILDS]});
 import {pullWeather} from './tempest/index';
 import {showForecast} from './tempest/index';
 import {MessageEmbed, MessageAttachment} from 'discord.js';
-import {svg2png} from 'svg-png-converter';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -73,12 +72,6 @@ client.on('interactionCreate', async (interaction) => {
       break;
     case 'forecast':
       const {forecast} = await pullWeather();
-      const weatherIcon = await svg2png({
-        input: `https://s3.amazonaws.com/tempest.cdn/assets/better-forecast/v9/possibly-thunderstorm-day.svg?v=1`,
-        encoding: 'buffer',
-        format: 'png',
-        quality: 1,
-      });
       const exampleEmbed = new MessageEmbed()
         .setColor('#0099ff')
         .setTitle(`${forecast.location_name}`)
@@ -88,9 +81,9 @@ client.on('interactionCreate', async (interaction) => {
           name: 'Monday',
           value: `${forecast.daily[0].conditions}`,
         })
+        .setThumbnail(weatherIcon)
         .setTimestamp();
       interaction.reply({
-        content: `Test: ${new MessageAttachment(weatherIcon, 'weather.png')}`,
         embeds: [exampleEmbed],
         ephemeral: true,
       });

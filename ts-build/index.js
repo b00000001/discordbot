@@ -43,7 +43,6 @@ var discord_js_1 = require("discord.js");
 var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
 var index_1 = require("./tempest/index");
 var discord_js_2 = require("discord.js");
-var svg_png_converter_1 = require("svg-png-converter");
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 client.once('ready', function () {
@@ -51,7 +50,7 @@ client.once('ready', function () {
     console.log("Logged in as " + ((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag) + "!");
 });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, data, embed, forecast, weatherIcon, exampleEmbed, msgAttachment, exampleEmbed;
+    var _a, data, embed, forecast, exampleEmbed, msgAttachment, exampleEmbed;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -62,13 +61,13 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     case 'ping': return [3 /*break*/, 1];
                     case 'weather': return [3 /*break*/, 3];
                     case 'forecast': return [3 /*break*/, 5];
-                    case 'test': return [3 /*break*/, 8];
+                    case 'test': return [3 /*break*/, 7];
                 }
-                return [3 /*break*/, 9];
+                return [3 /*break*/, 8];
             case 1: return [4 /*yield*/, interaction.reply('Pong!')];
             case 2:
                 _b.sent();
-                return [3 /*break*/, 11];
+                return [3 /*break*/, 10];
             case 3: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 4:
                 data = _b.sent();
@@ -111,18 +110,10 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     inline: true,
                 });
                 interaction.reply({ embeds: [embed], ephemeral: true });
-                return [3 /*break*/, 11];
+                return [3 /*break*/, 10];
             case 5: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 6:
                 forecast = (_b.sent()).forecast;
-                return [4 /*yield*/, (0, svg_png_converter_1.svg2png)({
-                        input: "https://s3.amazonaws.com/tempest.cdn/assets/better-forecast/v9/possibly-thunderstorm-day.svg?v=1",
-                        encoding: 'buffer',
-                        format: 'png',
-                        quality: 1,
-                    })];
-            case 7:
-                weatherIcon = _b.sent();
                 exampleEmbed = new discord_js_2.MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle("" + forecast.location_name)
@@ -132,14 +123,14 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     name: 'Monday',
                     value: "" + forecast.daily[0].conditions,
                 })
+                    .setThumbnail(weatherIcon)
                     .setTimestamp();
                 interaction.reply({
-                    content: "Test: " + new discord_js_2.MessageAttachment(weatherIcon, 'weather.png'),
                     embeds: [exampleEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 11];
-            case 8:
+                return [3 /*break*/, 10];
+            case 7:
                 msgAttachment = new discord_js_2.MessageAttachment(svg2Png(), 'Aaron.png');
                 exampleEmbed = new discord_js_2.MessageEmbed()
                     .setColor('#0099ff')
@@ -149,12 +140,12 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     embeds: [exampleEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 11];
-            case 9: return [4 /*yield*/, interaction.reply('Unknown command!')];
-            case 10:
+                return [3 /*break*/, 10];
+            case 8: return [4 /*yield*/, interaction.reply('Unknown command!')];
+            case 9:
                 _b.sent();
-                return [3 /*break*/, 11];
-            case 11: return [2 /*return*/];
+                return [3 /*break*/, 10];
+            case 10: return [2 /*return*/];
         }
     });
 }); });
