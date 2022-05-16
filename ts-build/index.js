@@ -50,7 +50,7 @@ client.once('ready', function () {
     console.log("Logged in as " + ((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag) + "!");
 });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, data, embed, forecast, exampleEmbed, msgAttachment, exampleEmbed;
+    var _a, data, embed, forecast, data, exampleEmbed, exampleEmbed;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -61,28 +61,29 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     case 'ping': return [3 /*break*/, 1];
                     case 'weather': return [3 /*break*/, 3];
                     case 'forecast': return [3 /*break*/, 5];
-                    case 'test': return [3 /*break*/, 7];
+                    case 'test': return [3 /*break*/, 8];
                 }
-                return [3 /*break*/, 8];
+                return [3 /*break*/, 9];
             case 1: return [4 /*yield*/, interaction.reply('Pong!')];
             case 2:
                 _b.sent();
-                return [3 /*break*/, 10];
+                return [3 /*break*/, 11];
             case 3: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 4:
                 data = _b.sent();
                 embed = new discord_js_2.MessageEmbed().setTitle('Weather').setColor('#0099ff');
-                embed.addFields({
+                embed
+                    .addFields({
                     name: 'Station Webpage',
                     value: "https://tempestwx.com/station/25168/",
                     inline: true,
                 }, {
-                    name: 'Time',
-                    value: "" + new Date(data.current_conditions.time * 1000).toLocaleTimeString(),
+                    name: 'Current Conditions',
+                    value: "" + data.current_conditions.conditions,
                     inline: true,
                 }, {
-                    name: 'Location',
-                    value: "" + data.location_name,
+                    name: 'Precipitation',
+                    value: data.current_conditions.precip_accum_local_day + " in",
                     inline: true,
                 }, {
                     name: 'Current Temp',
@@ -108,30 +109,50 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     name: 'Wind Gust',
                     value: "" + data.current_conditions.wind_gust,
                     inline: true,
-                });
+                })
+                    .setTimestamp();
                 interaction.reply({ embeds: [embed], ephemeral: true });
-                return [3 /*break*/, 10];
+                return [3 /*break*/, 11];
             case 5: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 6:
                 forecast = (_b.sent()).forecast;
+                return [4 /*yield*/, (0, index_1.pullWeather)()];
+            case 7:
+                data = _b.sent();
                 exampleEmbed = new discord_js_2.MessageEmbed()
                     .setColor('#0099ff')
-                    .setTitle("" + forecast.location_name)
+                    .setTitle("" + data.location_name)
                     .setURL('https://tempestwx.com/station/25168/')
                     .setAuthor('Tempest Weather Forecast')
                     .addFields({
                     name: 'Monday',
-                    value: "" + forecast.daily[0].conditions,
+                    value: forecast.daily[0].conditions + " \n            High" + (forecast.daily[0].air_temp_high * 1.8 + 32) + " F \n            Low " + (forecast.daily[0].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Tuesday',
+                    value: forecast.daily[1].conditions + " \n            High" + (forecast.daily[1].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[1].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Wednesday',
+                    value: forecast.daily[2].conditions + " \n            High" + (forecast.daily[2].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[2].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Thursday',
+                    value: forecast.daily[3].conditions + " \n            High" + (forecast.daily[3].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[3].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Friday',
+                    value: forecast.daily[4].conditions + " \n            High:" + (forecast.daily[4].air_temp_high * 1.8 + 32) + " F \n            Low:" + (forecast.daily[4].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Saturday',
+                    value: forecast.daily[5].conditions + " \n            High" + (forecast.daily[5].air_temp_high * 1.8 + 32) + " F \n            Low:" + (forecast.daily[5].air_temp_low * 1.8 + 32) + " F",
+                }, {
+                    name: 'Sunday',
+                    value: forecast.daily[6].conditions + " \n            High" + (forecast.daily[6].air_temp_high * 1.8 + 32) + " F \n            Low:" + (forecast.daily[6].air_temp_low * 1.8 + 32) + " F",
                 })
-                    .setThumbnail(weatherIcon)
                     .setTimestamp();
                 interaction.reply({
                     embeds: [exampleEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 10];
-            case 7:
-                msgAttachment = new discord_js_2.MessageAttachment(svg2Png(), 'Aaron.png');
+                return [3 /*break*/, 11];
+            case 8:
                 exampleEmbed = new discord_js_2.MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle('Test');
@@ -140,12 +161,12 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     embeds: [exampleEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 10];
-            case 8: return [4 /*yield*/, interaction.reply('Unknown command!')];
-            case 9:
+                return [3 /*break*/, 11];
+            case 9: return [4 /*yield*/, interaction.reply('Unknown command!')];
+            case 10:
                 _b.sent();
-                return [3 /*break*/, 10];
-            case 10: return [2 /*return*/];
+                return [3 /*break*/, 11];
+            case 11: return [2 /*return*/];
         }
     });
 }); });
