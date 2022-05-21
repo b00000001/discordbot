@@ -76,3 +76,4 @@ var pullWeather = function () { return __awaiter(void 0, void 0, void 0, functio
     });
 }); };
 exports.pullWeather = pullWeather;
+//# sourceMappingURL=index.js.map

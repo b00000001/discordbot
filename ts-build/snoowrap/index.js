@@ -39,20 +39,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(require("axios"));
-var pullDiscogs = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var data;
+exports.displaySub = void 0;
+var snoowrap_1 = __importDefault(require("snoowrap"));
+var r = new snoowrap_1.default({
+    userAgent: 'some-description',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    username: process.env.REDDIT_USER,
+    password: process.env.REDDIT_PASS,
+});
+var displaySub = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        data = axios_1.default.get('https://api.discogs.com/releases/249504', {
-            headers: {
-                'User-Agent': 'BotDiscogsChecker/3.0',
-            },
-        });
-        // fs.writeFileSync('discogs.json', data);
-        console.log('File Written');
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, r
+                    .getSubreddit('Astronomy')
+                    .getTop({ time: 'day' })
+                    .then(function (posts) {
+                    var subData = [];
+                    posts.forEach(function (post) {
+                        subData.push("" + post.title);
+                    });
+                    return subData;
+                })];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
     });
 }); };
-pullDiscogs();
-exports.default = pullDiscogs;
-//# sourceMappingURL=discogs.js.map
+exports.displaySub = displaySub;
+//# sourceMappingURL=index.js.map

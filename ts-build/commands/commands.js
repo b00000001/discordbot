@@ -18,10 +18,13 @@ var commands = [
     new SlashCommandBuilder()
         .setName('forecast')
         .setDescription('Forecast from Tempest Weatherstation API.'),
-    new SlashCommandBuilder().setName('test').setDescription('Test command.'),
+    new SlashCommandBuilder()
+        .setName('reddit')
+        .setDescription('Show reddit stream for given sub.'),
 ].map(function (command) { return command.toJSON(); });
 var rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 rest
     .put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), { body: commands })
     .then(function () { return console.log('Successfully registered application commands.'); })
     .catch(console.error);
+//# sourceMappingURL=commands.js.map

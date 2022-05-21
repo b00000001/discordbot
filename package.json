@@ -11,6 +11,7 @@
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
     "node": "^17.0.1",
+    "snoowrap": "^1.23.0",
     "svg-png-converter": "^0.0.9",
     "typescript": "^4.4.4"
   },
@@ -18,6 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ts-build/index.js",
     "combuild": "node ts-build/commands/commands.js",
+    "build": "tsc",
     "lint": "eslint **/*.ts",
     "watch": "nodemon ts-build/index.js"
   },
