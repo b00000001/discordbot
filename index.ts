@@ -1,8 +1,14 @@
-import {Client, Intents} from 'discord.js';
+import {
+  Client,
+  Intents,
+  MessageEmbed,
+  Modal,
+  TextInputComponent,
+  MessageActionRow,
+} from 'discord.js';
 const client = new Client({intents: [Intents.FLAGS.GUILDS]});
 import {pullWeather} from './tempest/index';
 import {displaySub} from './snoowrap/index';
-import {MessageEmbed, MessageActionRow, MessageSelectMenu} from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -143,26 +149,15 @@ client.on('interactionCreate', async (interaction) => {
     // Test Command
 
     case 'reddit':
-      const row = new MessageActionRow().addComponents(
-        new MessageSelectMenu()
-          .setCustomId('select')
-          .setPlaceholder('Select a Subreddit')
-          .setMinValues(1)
-          .setMaxValues(1)
-          .addOptions([
-            {
-              label: 'Astronomy',
-              description: 'Everything to do with Astronomy',
-              value: 'astronomy',
-            },
-          ])
-      );
-      await interaction.reply({
-        content: 'Test',
-        // embeds: [exampleEmbed],
-        ephemeral: true,
-        components: [row],
-      });
+      const subData = await displaySub();
+      const modal = new Modal().setTitle('Reddit').setCustomId('Modal');
+      const textInput = new TextInputComponent()
+        .setCustomId('modalText')
+        .setLabel('Enter the subreddit you wish to check')
+        .setStyle('SHORT');
+      const firstRow = new MessageActionRow().addComponents(textInput);
+      modal.addComponents(firstRow);
+      await interaction.showModal(modal);
       break;
     default:
       await interaction.reply('Unknown command!');
@@ -170,16 +165,10 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-// Interaction for select menu
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isSelectMenu()) return;
-
-  if (interaction.values[0] === 'astronomy') {
-    const subData = await displaySub();
-    await interaction.update({
-      content: `${subData.map((entry) => `${entry} \n`)}`,
-      components: [],
-    });
-  }
+client.on('interactionCreate', (interaction) => {
+  if (!interaction.isModalSubmit()) return;
+  const test = interaction.fields.getTextInputValue('modalText');
+  console.log(test);
 });
+
 client.login(process.env.DISCORD_TOKEN);

@@ -43,16 +43,15 @@ var discord_js_1 = require("discord.js");
 var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
 var index_1 = require("./tempest/index");
 var index_2 = require("./snoowrap/index");
-var discord_js_2 = require("discord.js");
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 client.once('ready', function () {
     var _a;
-    console.log("Logged in as " + ((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag) + "!");
+    console.log("Logged in as ".concat((_a = client.user) === null || _a === void 0 ? void 0 : _a.tag, "!"));
 });
 // Inteaction for slash commands
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, weatherData, weatherEmbed, forecast, data, forecastEmbed, row;
+    var _a, weatherData, weatherEmbed, forecast, data, forecastEmbed, subData, modal, textInput, firstRow;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -65,15 +64,15 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     case 'forecast': return [3 /*break*/, 5];
                     case 'reddit': return [3 /*break*/, 8];
                 }
-                return [3 /*break*/, 10];
+                return [3 /*break*/, 11];
             case 1: return [4 /*yield*/, interaction.reply('Pong!')];
             case 2:
                 _b.sent();
-                return [3 /*break*/, 12];
+                return [3 /*break*/, 13];
             case 3: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 4:
                 weatherData = _b.sent();
-                weatherEmbed = new discord_js_2.MessageEmbed()
+                weatherEmbed = new discord_js_1.MessageEmbed()
                     .setTitle('Weather')
                     .setColor('#0099ff')
                     .addFields({
@@ -82,131 +81,106 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     inline: true,
                 }, {
                     name: 'Current Conditions',
-                    value: "" + weatherData.current_conditions.conditions,
+                    value: "".concat(weatherData.current_conditions.conditions),
                     inline: true,
                 }, {
                     name: 'Precipitation',
-                    value: weatherData.current_conditions.precip_accum_local_day + " in\n            ",
+                    value: "".concat(weatherData.current_conditions.precip_accum_local_day, " in\n            "),
                     inline: true,
                 }, {
                     name: 'Current Temp',
-                    value: weatherData.current_conditions.air_temperature * 1.8 + 32 + " F",
+                    value: "".concat(weatherData.current_conditions.air_temperature * 1.8 + 32, " F"),
                     inline: true,
                 }, {
                     name: 'Current Humidity',
-                    value: weatherData.current_conditions.relative_humidity + "%",
+                    value: "".concat(weatherData.current_conditions.relative_humidity, "%"),
                     inline: true,
                 }, {
                     name: 'Pressure Trend',
-                    value: "" + weatherData.current_conditions.pressure_trend,
+                    value: "".concat(weatherData.current_conditions.pressure_trend),
                     inline: true,
                 }, {
                     name: 'Wind Speed',
-                    value: "" + weatherData.current_conditions.wind_avg,
+                    value: "".concat(weatherData.current_conditions.wind_avg),
                     inline: true,
                 }, {
                     name: 'Wind Direction',
-                    value: "" + weatherData.current_conditions.wind_direction_cardinal,
+                    value: "".concat(weatherData.current_conditions.wind_direction_cardinal),
                     inline: true,
                 }, {
                     name: 'Wind Gust',
-                    value: "" + weatherData.current_conditions.wind_gust,
+                    value: "".concat(weatherData.current_conditions.wind_gust),
                     inline: true,
                 })
                     .setTimestamp();
                 interaction.reply({ embeds: [weatherEmbed], ephemeral: true });
-                return [3 /*break*/, 12];
+                return [3 /*break*/, 13];
             case 5: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 6:
                 forecast = (_b.sent()).forecast;
                 return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 7:
                 data = _b.sent();
-                forecastEmbed = new discord_js_2.MessageEmbed()
+                forecastEmbed = new discord_js_1.MessageEmbed()
                     .setColor('#0099ff')
-                    .setTitle("" + data.location_name)
+                    .setTitle("".concat(data.location_name))
                     .setURL('https://tempestwx.com/station/25168/')
                     .setAuthor('Tempest Weather Forecast')
                     .addFields({
                     name: 'Monday',
-                    value: forecast.daily[0].conditions + " \n            High " + (forecast.daily[0].air_temp_high * 1.8 + 32) + " F \n            Low " + (forecast.daily[0].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[0].conditions, " \n            High ").concat(forecast.daily[0].air_temp_high * 1.8 + 32, " F \n            Low ").concat(forecast.daily[0].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Tuesday',
-                    value: forecast.daily[1].conditions + " \n            High " + (forecast.daily[1].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[1].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[1].conditions, " \n            High ").concat(forecast.daily[1].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[1].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Wednesday',
-                    value: forecast.daily[2].conditions + " \n            High " + (forecast.daily[2].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[2].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[2].conditions, " \n            High ").concat(forecast.daily[2].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[2].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Thursday',
-                    value: forecast.daily[3].conditions + " \n            High " + (forecast.daily[3].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[3].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[3].conditions, " \n            High ").concat(forecast.daily[3].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[3].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Friday',
-                    value: forecast.daily[4].conditions + " \n            High: " + (forecast.daily[4].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[4].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[4].conditions, " \n            High: ").concat(forecast.daily[4].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[4].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Saturday',
-                    value: forecast.daily[5].conditions + " \n            High " + (forecast.daily[5].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[5].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[5].conditions, " \n            High ").concat(forecast.daily[5].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[5].air_temp_low * 1.8 + 32, " F"),
                 }, {
                     name: 'Sunday',
-                    value: forecast.daily[6].conditions + " \n            High " + (forecast.daily[6].air_temp_high * 1.8 + 32) + " F \n            Low: " + (forecast.daily[6].air_temp_low * 1.8 + 32) + " F",
+                    value: "".concat(forecast.daily[6].conditions, " \n            High ").concat(forecast.daily[6].air_temp_high * 1.8 + 32, " F \n            Low: ").concat(forecast.daily[6].air_temp_low * 1.8 + 32, " F"),
                 })
                     .setTimestamp();
                 interaction.reply({
                     embeds: [forecastEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 12];
-            case 8:
-                row = new discord_js_2.MessageActionRow().addComponents(new discord_js_2.MessageSelectMenu()
-                    .setCustomId('select')
-                    .setPlaceholder('Select a Subreddit')
-                    .setMinValues(1)
-                    .setMaxValues(1)
-                    .addOptions([
-                    {
-                        label: 'Astronomy',
-                        description: 'Everything to do with Astronomy',
-                        value: 'astronomy',
-                    },
-                ]));
-                return [4 /*yield*/, interaction.reply({
-                        content: 'Test',
-                        // embeds: [exampleEmbed],
-                        ephemeral: true,
-                        components: [row],
-                    })];
+                return [3 /*break*/, 13];
+            case 8: return [4 /*yield*/, (0, index_2.displaySub)()];
             case 9:
+                subData = _b.sent();
+                modal = new discord_js_1.Modal().setTitle('Reddit').setCustomId('Modal');
+                textInput = new discord_js_1.TextInputComponent()
+                    .setCustomId('modalText')
+                    .setLabel('Enter the subreddit you wish to check')
+                    .setStyle('SHORT');
+                firstRow = new discord_js_1.MessageActionRow().addComponents(textInput);
+                modal.addComponents(firstRow);
+                return [4 /*yield*/, interaction.showModal(modal)];
+            case 10:
                 _b.sent();
-                return [3 /*break*/, 12];
-            case 10: return [4 /*yield*/, interaction.reply('Unknown command!')];
-            case 11:
+                return [3 /*break*/, 13];
+            case 11: return [4 /*yield*/, interaction.reply('Unknown command!')];
+            case 12:
                 _b.sent();
-                return [3 /*break*/, 12];
-            case 12: return [2 /*return*/];
+                return [3 /*break*/, 13];
+            case 13: return [2 /*return*/];
         }
     });
 }); });
-// Interaction for select menu
-client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var subData;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (!interaction.isSelectMenu())
-                    return [2 /*return*/];
-                if (!(interaction.values[0] === 'astronomy')) return [3 /*break*/, 3];
-                return [4 /*yield*/, (0, index_2.displaySub)()];
-            case 1:
-                subData = _a.sent();
-                return [4 /*yield*/, interaction.update({
-                        content: "" + subData.map(function (entry) { return entry + " \n"; }),
-                        components: [],
-                    })];
-            case 2:
-                _a.sent();
-                _a.label = 3;
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
+client.on('interactionCreate', function (interaction) {
+    if (!interaction.isModalSubmit())
+        return;
+    var test = interaction.fields.getTextInputValue('modalText');
+    console.log(test);
+});
 client.login(process.env.DISCORD_TOKEN);
 //# sourceMappingURL=index.js.map

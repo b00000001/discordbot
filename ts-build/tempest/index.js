@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -68,7 +72,7 @@ var pullWeather = function () { return __awaiter(void 0, void 0, void 0, functio
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=" + stationId + "&token=" + token)];
+            case 0: return [4 /*yield*/, axios_1.default.get("https://swd.weatherflow.com/swd/rest/better_forecast?station_id=".concat(stationId, "&token=").concat(token))];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];

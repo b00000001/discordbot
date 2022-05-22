@@ -57,7 +57,7 @@ var displaySub = function () { return __awaiter(void 0, void 0, void 0, function
                     .then(function (posts) {
                     var subData = [];
                     posts.forEach(function (post) {
-                        subData.push("" + post.title);
+                        subData.push("".concat(post.title));
                     });
                     return subData;
                 })];
