@@ -48,12 +48,12 @@ var r = new snoowrap_1.default({
     username: process.env.REDDIT_USER,
     password: process.env.REDDIT_PASS,
 });
-var displaySub = function () { return __awaiter(void 0, void 0, void 0, function () {
+var displaySub = function (subName) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, r
-                    .getSubreddit('Astronomy')
-                    .getTop({ time: 'day' })
+                    .getSubreddit(subName)
+                    .getTop({ time: 'day', limit: 5 })
                     .then(function (posts) {
                     var subData = [];
                     posts.forEach(function (post) {

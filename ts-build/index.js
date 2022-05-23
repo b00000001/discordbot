@@ -51,7 +51,7 @@ client.once('ready', function () {
 });
 // Inteaction for slash commands
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, weatherData, weatherEmbed, forecast, data, forecastEmbed, subData, modal, textInput, firstRow;
+    var _a, weatherData, weatherEmbed, forecast, data, forecastEmbed, modal, textInput, firstRow;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -64,11 +64,11 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     case 'forecast': return [3 /*break*/, 5];
                     case 'reddit': return [3 /*break*/, 8];
                 }
-                return [3 /*break*/, 11];
+                return [3 /*break*/, 10];
             case 1: return [4 /*yield*/, interaction.reply('Pong!')];
             case 2:
                 _b.sent();
-                return [3 /*break*/, 13];
+                return [3 /*break*/, 12];
             case 3: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 4:
                 weatherData = _b.sent();
@@ -114,7 +114,7 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 })
                     .setTimestamp();
                 interaction.reply({ embeds: [weatherEmbed], ephemeral: true });
-                return [3 /*break*/, 13];
+                return [3 /*break*/, 12];
             case 5: return [4 /*yield*/, (0, index_1.pullWeather)()];
             case 6:
                 forecast = (_b.sent()).forecast;
@@ -153,10 +153,8 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     embeds: [forecastEmbed],
                     ephemeral: true,
                 });
-                return [3 /*break*/, 13];
-            case 8: return [4 /*yield*/, (0, index_2.displaySub)()];
-            case 9:
-                subData = _b.sent();
+                return [3 /*break*/, 12];
+            case 8:
                 modal = new discord_js_1.Modal().setTitle('Reddit').setCustomId('Modal');
                 textInput = new discord_js_1.TextInputComponent()
                     .setCustomId('modalText')
@@ -165,22 +163,43 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                 firstRow = new discord_js_1.MessageActionRow().addComponents(textInput);
                 modal.addComponents(firstRow);
                 return [4 /*yield*/, interaction.showModal(modal)];
-            case 10:
+            case 9:
                 _b.sent();
-                return [3 /*break*/, 13];
-            case 11: return [4 /*yield*/, interaction.reply('Unknown command!')];
-            case 12:
+                return [3 /*break*/, 12];
+            case 10: return [4 /*yield*/, interaction.reply('Unknown command!')];
+            case 11:
                 _b.sent();
-                return [3 /*break*/, 13];
-            case 13: return [2 /*return*/];
+                return [3 /*break*/, 12];
+            case 12: return [2 /*return*/];
         }
     });
 }); });
-client.on('interactionCreate', function (interaction) {
-    if (!interaction.isModalSubmit())
-        return;
-    var test = interaction.fields.getTextInputValue('modalText');
-    console.log(test);
-});
+client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
+    var test, subData, redditEmbed;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!interaction.isModalSubmit())
+                    return [2 /*return*/];
+                test = interaction.fields.getTextInputValue('modalText');
+                return [4 /*yield*/, (0, index_2.displaySub)(test)];
+            case 1:
+                subData = _a.sent();
+                redditEmbed = new discord_js_1.MessageEmbed()
+                    .setTitle('Reddit')
+                    .setColor('#0099ff')
+                    .addFields({
+                    name: 'Subreddit',
+                    value: "".concat(subData),
+                    inline: true,
+                })
+                    .setTimestamp();
+                return [4 /*yield*/, interaction.reply({ embeds: [redditEmbed], ephemeral: true })];
+            case 2:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
 client.login(process.env.DISCORD_TOKEN);
 //# sourceMappingURL=index.js.map

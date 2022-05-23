@@ -8,10 +8,10 @@ const r = new Snoowrap({
   password: process.env.REDDIT_PASS,
 });
 
-export const displaySub = async () => {
+export const displaySub = async (subName) => {
   return await r
-    .getSubreddit('Astronomy')
-    .getTop({time: 'day'})
+    .getSubreddit(subName)
+    .getTop({time: 'day', limit: 5})
     .then((posts) => {
       const subData: Array<string> = [];
       posts.forEach((post) => {

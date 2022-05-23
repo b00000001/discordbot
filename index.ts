@@ -149,7 +149,6 @@ client.on('interactionCreate', async (interaction) => {
     // Test Command
 
     case 'reddit':
-      const subData = await displaySub();
       const modal = new Modal().setTitle('Reddit').setCustomId('Modal');
       const textInput = new TextInputComponent()
         .setCustomId('modalText')
@@ -165,10 +164,20 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-client.on('interactionCreate', (interaction) => {
+client.on('interactionCreate', async (interaction) => {
   if (!interaction.isModalSubmit()) return;
   const test = interaction.fields.getTextInputValue('modalText');
-  console.log(test);
+  const subData = await displaySub(test);
+  const redditEmbed = new MessageEmbed()
+    .setTitle('Reddit')
+    .setColor('#0099ff')
+    .addFields({
+      name: 'Subreddit',
+      value: `${subData}`,
+      inline: true,
+    })
+    .setTimestamp();
+  await interaction.reply({embeds: [redditEmbed], ephemeral: true});
 });
 
 client.login(process.env.DISCORD_TOKEN);
