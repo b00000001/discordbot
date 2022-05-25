@@ -14,8 +14,9 @@ export const displaySub = async (subName) => {
     .getTop({time: 'day', limit: 5})
     .then((posts) => {
       const subData: Array<string> = [];
+      console.log(posts);
       posts.forEach((post) => {
-        subData.push(`${post.title}`);
+        subData.push(`${post.title}`, post.url);
       });
       return subData;
     });

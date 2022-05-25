@@ -56,8 +56,9 @@ var displaySub = function (subName) { return __awaiter(void 0, void 0, void 0, f
                     .getTop({ time: 'day', limit: 5 })
                     .then(function (posts) {
                     var subData = [];
+                    console.log(posts);
                     posts.forEach(function (post) {
-                        subData.push("".concat(post.title));
+                        subData.push("".concat(post.title), post.url);
                     });
                     return subData;
                 })];

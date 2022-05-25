@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = require("discord.js");
+var builders_1 = require("@discordjs/builders");
 var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
 var index_1 = require("./tempest/index");
 var index_2 = require("./snoowrap/index");
@@ -175,13 +176,14 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
     });
 }); });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var test, subData, redditEmbed;
+    var test, url, subData, redditEmbed;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!interaction.isModalSubmit())
                     return [2 /*return*/];
                 test = interaction.fields.getTextInputValue('modalText');
+                url = 'http://www.google.com';
                 return [4 /*yield*/, (0, index_2.displaySub)(test)];
             case 1:
                 subData = _a.sent();
@@ -190,7 +192,7 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
                     .setColor('#0099ff')
                     .addFields({
                     name: 'Subreddit',
-                    value: "".concat(subData),
+                    value: "".concat(subData.map(function (d) { return "".concat(d, " \n"); }).join(''), " ").concat((0, builders_1.hyperlink)('Test', url)),
                     inline: true,
                 })
                     .setTimestamp();

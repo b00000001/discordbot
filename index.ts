@@ -6,6 +6,7 @@ import {
   TextInputComponent,
   MessageActionRow,
 } from 'discord.js';
+import {hyperlink} from '@discordjs/builders';
 const client = new Client({intents: [Intents.FLAGS.GUILDS]});
 import {pullWeather} from './tempest/index';
 import {displaySub} from './snoowrap/index';
@@ -167,13 +168,17 @@ client.on('interactionCreate', async (interaction) => {
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isModalSubmit()) return;
   const test = interaction.fields.getTextInputValue('modalText');
+  const url = 'http://www.google.com';
   const subData = await displaySub(test);
   const redditEmbed = new MessageEmbed()
     .setTitle('Reddit')
     .setColor('#0099ff')
     .addFields({
       name: 'Subreddit',
-      value: `${subData}`,
+      value: `${subData.map((d) => `${d} \n`).join('')} ${hyperlink(
+        'Test',
+        url
+      )}`,
       inline: true,
     })
     .setTimestamp();
