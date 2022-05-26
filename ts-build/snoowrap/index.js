@@ -53,12 +53,11 @@ var displaySub = function (subName) { return __awaiter(void 0, void 0, void 0, f
         switch (_a.label) {
             case 0: return [4 /*yield*/, r
                     .getSubreddit(subName)
-                    .getTop({ time: 'day', limit: 5 })
+                    .getTop({ time: 'day', limit: 3 })
                     .then(function (posts) {
                     var subData = [];
-                    console.log(posts);
                     posts.forEach(function (post) {
-                        subData.push("".concat(post.title), post.url);
+                        subData.push(["".concat(post.title), post.url]);
                     });
                     return subData;
                 })];

@@ -16,7 +16,7 @@ const commands = [
     .setDescription('Forecast from Tempest Weatherstation API.'),
   new SlashCommandBuilder()
     .setName('reddit')
-    .setDescription('Show reddit stream for given sub.'),
+    .setDescription('Displays top 3 posts for the day in a given Subreddit'),
 ].map((command) => command.toJSON());
 
 const rest = new REST({version: '9'}).setToken(process.env.DISCORD_TOKEN);

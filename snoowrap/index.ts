@@ -11,12 +11,11 @@ const r = new Snoowrap({
 export const displaySub = async (subName) => {
   return await r
     .getSubreddit(subName)
-    .getTop({time: 'day', limit: 5})
+    .getTop({time: 'day', limit: 3})
     .then((posts) => {
-      const subData: Array<string> = [];
-      console.log(posts);
+      const subData = [];
       posts.forEach((post) => {
-        subData.push(`${post.title}`, post.url);
+        subData.push([`${post.title}`, post.url]);
       });
       return subData;
     });

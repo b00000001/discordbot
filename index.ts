@@ -167,18 +167,23 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isModalSubmit()) return;
-  const test = interaction.fields.getTextInputValue('modalText');
+  const subName = interaction.fields.getTextInputValue('modalText');
   const url = 'http://www.google.com';
-  const subData = await displaySub(test);
+  const subData = await displaySub(subName);
   const redditEmbed = new MessageEmbed()
     .setTitle('Reddit')
     .setColor('#0099ff')
     .addFields({
-      name: 'Subreddit',
-      value: `${subData.map((d) => `${d} \n`).join('')} ${hyperlink(
-        'Test',
-        url
-      )}`,
+      name: `http://reddit.com/r/${subName}`,
+      value: `${subData
+        .map(
+          (d) =>
+            `
+      Title: ${d[0]}
+      Permalink: ${d[1]}
+      `
+        )
+        .join('')}`,
       inline: true,
     })
     .setTimestamp();

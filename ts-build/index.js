@@ -40,7 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = require("discord.js");
-var builders_1 = require("@discordjs/builders");
 var client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS] });
 var index_1 = require("./tempest/index");
 var index_2 = require("./snoowrap/index");
@@ -176,23 +175,27 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
     });
 }); });
 client.on('interactionCreate', function (interaction) { return __awaiter(void 0, void 0, void 0, function () {
-    var test, url, subData, redditEmbed;
+    var subName, url, subData, redditEmbed;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!interaction.isModalSubmit())
                     return [2 /*return*/];
-                test = interaction.fields.getTextInputValue('modalText');
+                subName = interaction.fields.getTextInputValue('modalText');
                 url = 'http://www.google.com';
-                return [4 /*yield*/, (0, index_2.displaySub)(test)];
+                return [4 /*yield*/, (0, index_2.displaySub)(subName)];
             case 1:
                 subData = _a.sent();
                 redditEmbed = new discord_js_1.MessageEmbed()
                     .setTitle('Reddit')
                     .setColor('#0099ff')
                     .addFields({
-                    name: 'Subreddit',
-                    value: "".concat(subData.map(function (d) { return "".concat(d, " \n"); }).join(''), " ").concat((0, builders_1.hyperlink)('Test', url)),
+                    name: "http://reddit.com/r/".concat(subName),
+                    value: "".concat(subData
+                        .map(function (d) {
+                        return "\n      Title: ".concat(d[0], "\n      Permalink: ").concat(d[1], "\n      ");
+                    })
+                        .join('')),
                     inline: true,
                 })
                     .setTimestamp();

@@ -20,7 +20,7 @@ var commands = [
         .setDescription('Forecast from Tempest Weatherstation API.'),
     new SlashCommandBuilder()
         .setName('reddit')
-        .setDescription('Show reddit stream for given sub.'),
+        .setDescription('Displays top 3 posts for the day in a given Subreddit'),
 ].map(function (command) { return command.toJSON(); });
 var rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 rest
