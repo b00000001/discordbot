@@ -43,14 +43,18 @@ var axios_1 = __importDefault(require("axios"));
 var pullDiscogs = function () { return __awaiter(void 0, void 0, void 0, function () {
     var data;
     return __generator(this, function (_a) {
-        data = axios_1.default.get('https://api.discogs.com/releases/249504', {
-            headers: {
-                'User-Agent': 'BotDiscogsChecker/3.0',
-            },
-        });
-        // fs.writeFileSync('discogs.json', data);
-        console.log('File Written');
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, axios_1.default.get('https://api.discogs.com/releases/249504', {
+                    headers: {
+                        'User-Agent': 'BotDiscogsChecker/3.0',
+                    },
+                })];
+            case 1:
+                data = _a.sent();
+                // fs.writeFileSync('discogs.json', data);
+                console.log(data);
+                return [2 /*return*/];
+        }
     });
 }); };
 pullDiscogs();
