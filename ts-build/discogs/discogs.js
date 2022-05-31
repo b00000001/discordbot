@@ -57,6 +57,18 @@ var pullDiscogs = function () { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-pullDiscogs();
-exports.default = pullDiscogs;
+var testing = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var data;
+    return __generator(this, function (_a) {
+        data = axios_1.default.get('https://api.discogs.com/oauth/identity', {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: 'OAuth oauth_consumer_key="MqhNPACMuAvBGTnYdGFi"',
+            },
+        });
+        console.log(data);
+        return [2 /*return*/];
+    });
+}); };
+testing();
 //# sourceMappingURL=discogs.js.map
